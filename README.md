@@ -61,7 +61,8 @@ Add this to your mcp server config file:
 ```
 ![001.png](images/001.png)
 
-
+## Example
+![002.png](images/002.png)
 
 ## License
 

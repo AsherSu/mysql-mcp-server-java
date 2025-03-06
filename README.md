@@ -51,7 +51,7 @@ Add this to your mcp server config file:
     "command": "java",
     "args": [
       "-jar",
-      "{{ProjectDirect}}\\target\\mcp-mysql-server-1.0.0.jar"
+      "{{ProjectDirectory}}\\target\\mcp-mysql-server-1.0.0.jar"
     ],
     "env": {
       "SPRING_DATASOURCE_URL": "jdbc:mysql://username:password@localhost:3306/database"

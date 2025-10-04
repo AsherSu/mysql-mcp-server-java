@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.exception.MysqlMcpException;
+import com.example.service.MysqlToolService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,11 +15,10 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.regex.Pattern;
+import java.util.Arrays;
 
 @Testcontainers
-class MultiConnectionSqlToolTest {
+class MysqlToolServiceTest {
 
     @Container
     static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0")
@@ -26,12 +27,13 @@ class MultiConnectionSqlToolTest {
             .withPassword("testpass");
 
     // 工具实例：每个测试用新的，保证白名单/开关互不影响
-    private MultiConnectionSqlTool tool;
+    private MysqlToolService tool;
 
     @BeforeEach
     void ensureRunning() {
         Assertions.assertTrue(mysql.isRunning());
-        tool = new MultiConnectionSqlTool(true); // 默认写开关关闭
+        // 使用新的构造函数，启用写操作并设置白名单
+        tool = new MysqlToolService(true, Arrays.asList("insert", "update", "delete", "create", "drop", "alter", "truncate", "replace"));
     }
 
     @Test
@@ -55,9 +57,9 @@ class MultiConnectionSqlToolTest {
             st.executeUpdate("CREATE TABLE IF NOT EXISTS person (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(64))");
             st.executeUpdate("INSERT INTO person(name) VALUES('Alice'),('Bob')");
         }
-        List<Map<String,Object>> rows = tool.queryWithConnection(cid, "select * from person order by id");
+        List<Map<String, Object>> rows = tool.queryWithConnection(cid, "select * from person order by id");
         Assertions.assertEquals(2, rows.size());
-        List<Map<String,Object>> schema = tool.getTableSchema(cid, "person");
+        List<Map<String, Object>> schema = tool.getTableSchema(cid, "person");
         Assertions.assertTrue(schema.stream().anyMatch(m -> "id".equalsIgnoreCase(String.valueOf(m.get("COLUMN_NAME")))));
         String tables = tool.listAllTablesName(cid);
         Assertions.assertTrue(tables.contains("person"));
@@ -233,7 +235,7 @@ class MultiConnectionSqlToolTest {
             Assertions.assertTrue(val instanceof String);
             String s = (String) val;
             Assertions.assertTrue(s.length() <= 20 + 25, "Truncated string should not exceed limit + suffix");
-            Assertions.assertTrue(Pattern.compile(".*\\(truncated,len=\\d+\\)$$").matcher(s).matches(), "Should have truncated suffix");
+            Assertions.assertTrue(java.util.regex.Pattern.compile(".*\\(truncated,len=\\d+\\)$").matcher(s).matches(), "Should have truncated suffix");
         } finally {
             tool.setMaxQueryRows(prevRows);
             tool.setMaxFieldLength(prevFieldLen);

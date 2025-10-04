@@ -32,7 +32,21 @@ spring:
 
 mcp:
   mysql:
-    write-enabled: false  # 全局非SELECT写操作开关，默认关闭，可热切换
+    tools:
+      nonQuery:
+        enabled: false  # 全局非SELECT写操作开关，默认关闭，可热切换
+        whitelist:
+          - INSERT
+          - UPDATE
+          - DELETE
+          - CREATE
+          - DROP
+          - ALTER
+          - TRUNCATE
+          - REPLACE
+      audit:
+        enabled: true
+        max-entries: 1000
 
 server:
   port: 18080

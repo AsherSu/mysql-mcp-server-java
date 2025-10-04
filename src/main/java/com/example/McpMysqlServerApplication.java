@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.service.MysqlToolService;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.boot.SpringApplication;
@@ -19,9 +20,9 @@ public class McpMysqlServerApplication {
 	 * 注册所有 @Tool 方法到 MCP Server (基于反射扫描 SqlTool)。
 	 */
 	@Bean
-	public ToolCallbackProvider toolCallbackProvider(MultiConnectionSqlTool multiConnectionSqlTool) {
+	public ToolCallbackProvider toolCallbackProvider(MysqlToolService mysqlToolService) {
 		return MethodToolCallbackProvider.builder()
-				.toolObjects(multiConnectionSqlTool) // 可追加多个 service
+				.toolObjects(mysqlToolService) // 可追加多个 service
 				.build();
 	}
 }

@@ -1,6 +1,6 @@
-package com.example.manager;
+package cn.ashersu.mcp.mysql.manager;
 
-import com.example.exception.MysqlMcpException;
+import cn.ashersu.mcp.mysql.exception.MysqlMcpException;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

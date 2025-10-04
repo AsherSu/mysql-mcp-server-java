@@ -1,6 +1,6 @@
-package com.example;
+package cn.ashersu.mcp.mysql;
 
-import com.example.service.MysqlToolService;
+import cn.ashersu.mcp.mysql.service.MysqlToolService;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.boot.SpringApplication;

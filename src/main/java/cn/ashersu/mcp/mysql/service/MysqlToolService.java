@@ -1,9 +1,9 @@
-package com.example.service;
+package cn.ashersu.mcp.mysql.service;
 
-import com.example.audit.MysqlAuditService;
-import com.example.exception.MysqlMcpException;
-import com.example.manager.MysqlConnectionManager;
-import com.example.manager.JdbcExecutor;
+import cn.ashersu.mcp.mysql.audit.MysqlAuditService;
+import cn.ashersu.mcp.mysql.exception.MysqlMcpException;
+import cn.ashersu.mcp.mysql.manager.JdbcExecutor;
+import cn.ashersu.mcp.mysql.manager.MysqlConnectionManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.beans.factory.annotation.Value;

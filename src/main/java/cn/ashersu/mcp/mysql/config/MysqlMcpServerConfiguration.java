@@ -1,7 +1,7 @@
-package com.example.config;
+package cn.ashersu.mcp.mysql.config;
 
-import com.example.audit.MysqlAuditService;
-import com.example.manager.MysqlConnectionManager;
+import cn.ashersu.mcp.mysql.audit.MysqlAuditService;
+import cn.ashersu.mcp.mysql.manager.MysqlConnectionManager;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

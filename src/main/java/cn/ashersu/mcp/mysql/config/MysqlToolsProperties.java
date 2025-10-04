@@ -1,4 +1,4 @@
-package com.example.config;
+package cn.ashersu.mcp.mysql.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -1,4 +1,4 @@
-package com.example.audit;
+package cn.ashersu.mcp.mysql.audit;
 
 import lombok.extern.slf4j.Slf4j;
 

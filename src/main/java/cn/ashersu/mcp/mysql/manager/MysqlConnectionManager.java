@@ -1,6 +1,6 @@
-package com.example.manager;
+package cn.ashersu.mcp.mysql.manager;
 
-import com.example.exception.MysqlMcpException;
+import cn.ashersu.mcp.mysql.exception.MysqlMcpException;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;

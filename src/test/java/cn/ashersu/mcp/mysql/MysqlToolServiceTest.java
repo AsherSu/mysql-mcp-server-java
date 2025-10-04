@@ -1,7 +1,7 @@
-package com.example;
+package cn.ashersu.mcp.mysql;
 
-import com.example.exception.MysqlMcpException;
-import com.example.service.MysqlToolService;
+import cn.ashersu.mcp.mysql.exception.MysqlMcpException;
+import cn.ashersu.mcp.mysql.service.MysqlToolService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;

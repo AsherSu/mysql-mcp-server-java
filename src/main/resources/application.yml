@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: mcp-mysql-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 172.16.0.90:8848
+        namespace: public
+        group: DEFAULT_GROUP
+        service: ${spring.application.name}
+        metadata:
+          version: 1.0.0
+          region: default
+        enabled: true
+        register-enabled: true
+        heart-beat-interval: 5000
+        heart-beat-timeout: 15000
+        ip-delete-timeout: 30000
+  ai:
+    mcp:
+      server:
+        name: mcp-mysql-server
+        version: 1.0.0
+        type: SYNC
+        sse-message-endpoint: /mcp/message
+        sse-endpoint: /sse
+        capabilities:
+          tool: true
+          resource: true
+          prompt: true
+          completion: true
+
+mcp:
+  mysql:
+    write-enabled: false  # 全局非SELECT写操作开关，默认关闭，可热切换
+
+server:
+  port: 18080
+
+logging:
+  level:
+    root: INFO
+    org.springframework.ai: DEBUG
+    org.springframework.web: DEBUG
+    com.example: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+debug: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never

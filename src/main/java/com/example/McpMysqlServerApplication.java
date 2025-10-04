@@ -1,13 +1,13 @@
 package com.example;
 
-import org.springframework.ai.tool.ToolCallback;
-import org.springframework.ai.tool.ToolCallbacks;
+import org.springframework.ai.tool.ToolCallbackProvider;
+import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
-import java.util.List;
-
+@EnableDiscoveryClient
 @SpringBootApplication
 public class McpMysqlServerApplication {
 
@@ -15,8 +15,13 @@ public class McpMysqlServerApplication {
 		SpringApplication.run(McpMysqlServerApplication.class, args);
 	}
 
+	/**
+	 * 注册所有 @Tool 方法到 MCP Server (基于反射扫描 SqlTool)。
+	 */
 	@Bean
-	public List<ToolCallback> weatherTools(SqlTool sqlTool) {
-		return List.of(ToolCallbacks.from(sqlTool));
+	public ToolCallbackProvider toolCallbackProvider(MultiConnectionSqlTool multiConnectionSqlTool) {
+		return MethodToolCallbackProvider.builder()
+				.toolObjects(multiConnectionSqlTool) // 可追加多个 service
+				.build();
 	}
 }
